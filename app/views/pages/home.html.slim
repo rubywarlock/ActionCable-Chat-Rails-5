@@ -1,0 +1,15 @@
+div class="jumbotron"
+  h1 chatter
+
+  .well#chatbox style="height: 250px; border: 1px solid #ccc; overflow-y: scroll;"
+    - @messages.each do |message|
+      = render "messages/message", message: message
+
+  - if current_user
+    = form_with model: @message do |f|
+      .input-group.mb-3
+        = f.text_field :body, class: "form-control"
+        .input-group-append
+          = f.submit "Send", class: "btn btn-primary"
+  - else
+    = link_to "Sign up", new_user_session_path
